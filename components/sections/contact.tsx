@@ -63,6 +63,13 @@ export function ContactSection() {
       };
 
       // Send email using EmailJS
+      console.log("Sending email with params:", {
+        SERVICE_ID,
+        TEMPLATE_ID,
+        PUBLIC_KEY: PUBLIC_KEY.substring(0, 10) + "...",
+        templateParams
+      });
+      
       await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
       
       setSubmitStatus("success");
@@ -75,8 +82,13 @@ export function ContactSection() {
         budget: "",
         timeline: "",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to send email:", error);
+      console.error("Error details:", {
+        message: error?.message,
+        status: error?.status,
+        text: error?.text
+      });
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
