@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -24,6 +24,12 @@ export function ContactSection() {
   
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    emailjs.init("tFGrBssQt92lRU8JF");
+    console.log("EmailJS initialized");
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
@@ -37,15 +43,9 @@ export function ContactSection() {
     setSubmitStatus("idle");
 
     try {
-      // Initialize EmailJS first
-      emailjs.init({
-        publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "tFGrBssQt92lRU8JF",
-      });
-      
-      // EmailJS configuration from environment variables
-      const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_ztiq5yj";
-      const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_uzfsjdq";
-      const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "tFGrBssQt92lRU8JF";
+      // EmailJS configuration - using the credentials directly
+      const SERVICE_ID = "service_ztiq5yj";
+      const TEMPLATE_ID = "template_uzfsjdq";
 
       // Prepare template parameters
       const templateParams = {
@@ -55,27 +55,21 @@ export function ContactSection() {
         project_type: formData.project || "Not specified",
         budget: formData.budget || "Not specified",
         timeline: formData.timeline || "Not specified",
-        message: `
-          New inquiry from ${formData.name}
-          
-          Company: ${formData.company || "Not specified"}
-          Email: ${formData.email}
-          Project Type: ${formData.project || "Not specified"}
-          Budget Range: ${formData.budget || "Not specified"}
-          Timeline: ${formData.timeline || "Not specified"}
-        `,
       };
 
       // Send email using EmailJS
-      console.log("Sending email with params:", {
-        SERVICE_ID,
-        TEMPLATE_ID,
-        PUBLIC_KEY: PUBLIC_KEY.substring(0, 10) + "...",
-        templateParams
-      });
+      console.log("Attempting to send email with EmailJS...");
+      console.log("Service ID:", SERVICE_ID);
+      console.log("Template ID:", TEMPLATE_ID);
+      console.log("Template params:", templateParams);
       
-      const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
-      console.log("Email sent successfully:", result);
+      try {
+        const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
+        console.log("Email sent successfully:", result);
+      } catch (emailError: any) {
+        console.error("EmailJS specific error:", emailError);
+        throw emailError;
+      }
       
       setSubmitStatus("success");
       // Reset form

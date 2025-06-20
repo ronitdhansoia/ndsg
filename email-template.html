@@ -1,113 +1,167 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>New Inquiry - NDSG Associates</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .header {
-            background-color: #000;
-            color: #fff;
-            padding: 20px;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 30px;
         }
         .header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 14px;
+            opacity: 0.8;
         }
         .content {
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 5px;
+            padding: 40px 30px;
+        }
+        .greeting {
+            color: #000;
+            font-size: 20px;
+            margin-bottom: 30px;
+            font-weight: 500;
         }
         .field {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .field:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #000;
         }
         .label {
-            font-weight: bold;
+            font-weight: 600;
             color: #666;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
+            letter-spacing: 0.5px;
             margin-bottom: 5px;
+            display: block;
         }
         .value {
             color: #000;
             font-size: 16px;
+            margin: 0;
         }
         .footer {
-            margin-top: 30px;
+            background-color: #f8f8f8;
+            padding: 25px 30px;
             text-align: center;
-            color: #666;
-            font-size: 12px;
+            border-top: 1px solid #e0e0e0;
         }
-        .highlight {
-            background-color: #fff;
-            padding: 15px;
-            border-left: 4px solid #000;
-            margin: 20px 0;
+        .footer p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 13px;
+        }
+        .footer .copyright {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+        .cta {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .cta a {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+            .header {
+                padding: 25px 20px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>NDSG Associates - New Inquiry</h1>
-    </div>
-    
-    <div class="content">
-        <h2 style="color: #000; margin-bottom: 25px;">New Contact Form Submission</h2>
-        
-        <div class="field">
-            <div class="label">Name</div>
-            <div class="value">{{from_name}}</div>
+    <div class="container">
+        <div class="header">
+            <h1>NDSG ASSOCIATES</h1>
+            <p>New Inquiry Received</p>
         </div>
         
-        <div class="field">
-            <div class="label">Email</div>
-            <div class="value">{{from_email}}</div>
+        <div class="content">
+            <h2 class="greeting">You have a new inquiry!</h2>
+            
+            <div class="field">
+                <span class="label">Contact Name</span>
+                <p class="value">{{from_name}}</p>
+            </div>
+            
+            <div class="field">
+                <span class="label">Email Address</span>
+                <p class="value">{{from_email}}</p>
+            </div>
+            
+            <div class="field">
+                <span class="label">Company</span>
+                <p class="value">{{company}}</p>
+            </div>
+            
+            <div class="field">
+                <span class="label">Project Type</span>
+                <p class="value">{{project_type}}</p>
+            </div>
+            
+            <div class="field">
+                <span class="label">Budget Range</span>
+                <p class="value">{{budget}}</p>
+            </div>
+            
+            <div class="field">
+                <span class="label">Timeline</span>
+                <p class="value">{{timeline}}</p>
+            </div>
+            
+            <div class="cta">
+                <a href="mailto:{{from_email}}">Reply to {{from_name}}</a>
+            </div>
         </div>
         
-        <div class="field">
-            <div class="label">Company</div>
-            <div class="value">{{company}}</div>
+        <div class="footer">
+            <p><strong>This inquiry was submitted through the NDSG Associates website.</strong></p>
+            <p>Please respond within 24 hours to maintain our service standards.</p>
+            <p class="copyright">© 2017-2025 NDSG Associates. All rights reserved.</p>
         </div>
-        
-        <div class="field">
-            <div class="label">Project Type</div>
-            <div class="value">{{project_type}}</div>
-        </div>
-        
-        <div class="field">
-            <div class="label">Budget Range</div>
-            <div class="value">{{budget}}</div>
-        </div>
-        
-        <div class="field">
-            <div class="label">Timeline</div>
-            <div class="value">{{timeline}}</div>
-        </div>
-        
-        <div class="highlight">
-            <div class="label" style="margin-bottom: 10px;">Message Details</div>
-            <div style="white-space: pre-wrap;">{{message}}</div>
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>This inquiry was submitted through the NDSG Associates website contact form.</p>
-        <p>© 2017-2025 NDSG Associates. All rights reserved.</p>
     </div>
 </body>
 </html>
