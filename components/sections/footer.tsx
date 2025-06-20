@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -16,13 +17,22 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-16">
           {/* Brand column */}
           <div className="md:col-span-4">
-            <h3 className="text-3xl font-bold mb-6">NDSG</h3>
+            <div className="flex items-center gap-3 mb-6">
+              <Image 
+                src="/logo.jpeg" 
+                alt="NDSG Logo" 
+                width={40} 
+                height={40}
+                className="rounded"
+              />
+              <h3 className="text-3xl font-bold">NDSG</h3>
+            </div>
             <p className="text-gray-600 mb-8 pr-8">
-              Transforming businesses through strategic innovation and cutting-edge technology solutions since 2021.
+              Transforming businesses through strategic innovation and cutting-edge technology solutions since 2017.
             </p>
             <div className="space-y-2">
               <p className="text-sm text-gray-600">
-                <span className="font-medium text-black">Est.</span> 2021
+                <span className="font-medium text-black">Est.</span> 2017
               </p>
               <p className="text-sm text-gray-600">
                 <span className="font-medium text-black">HQ:</span> Gurugram, India
@@ -80,7 +90,7 @@ export function Footer() {
         <div className="border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-600 mb-4 md:mb-0">
-              © {currentYear} NDSG Associates. All rights reserved.
+              © 2017-{currentYear} NDSG Associates. All rights reserved.
             </p>
             <div className="flex items-center space-x-6">
               <a href="#" className="text-sm text-gray-600 hover:text-black transition-colors">Privacy Policy</a>

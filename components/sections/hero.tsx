@@ -33,7 +33,7 @@ export function HeroSection() {
             className="mb-12"
           >
             <span className="text-sm md:text-base text-gray-600 tracking-[0.3em] uppercase font-light">
-              Est. 2021
+              Est. 2017
             </span>
           </motion.div>
           
@@ -93,7 +93,7 @@ export function HeroSection() {
             className="flex flex-wrap justify-center gap-12 mt-24 text-sm text-gray-600"
           >
             {[
-              { number: "3+", label: "Years of Excellence" },
+              { number: "8+", label: "Years of Excellence" },
               { number: "50+", label: "Projects Delivered" },
               { number: "15+", label: "Team Members" },
             ].map((stat, index) => (

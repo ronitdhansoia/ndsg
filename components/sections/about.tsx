@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { label: "Years", value: "3+" },
+  { label: "Years", value: "8+" },
   { label: "Projects", value: "50+" },
   { label: "Satisfaction", value: "98%" },
   { label: "Team", value: "15+" },
@@ -43,7 +43,7 @@ export function AboutSection() {
             
             <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
               <p>
-                Founded in 2021, NDSG Associates has rapidly emerged as a trusted partner 
+                Founded in 2017, NDSG Associates has rapidly emerged as a trusted partner 
                 for businesses seeking transformative digital solutions.
               </p>
               <p>

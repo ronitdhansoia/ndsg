@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -12,6 +12,9 @@ export function ContactSection() {
     budget: "",
     timeline: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -28,9 +31,56 @@ export function ContactSection() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      // EmailJS configuration from environment variables
+      const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_ztiq5yj";
+      const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_uzfsjdq";
+      const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "tFGrBssQt92lRU8JF";
+
+      // Prepare template parameters
+      const templateParams = {
+        to_email: "dhansoia@gmail.com",
+        from_name: formData.name,
+        from_email: formData.email,
+        company: formData.company || "Not specified",
+        project_type: formData.project || "Not specified",
+        budget: formData.budget || "Not specified",
+        timeline: formData.timeline || "Not specified",
+        message: `
+          New inquiry from ${formData.name}
+          
+          Company: ${formData.company || "Not specified"}
+          Email: ${formData.email}
+          Project Type: ${formData.project || "Not specified"}
+          Budget Range: ${formData.budget || "Not specified"}
+          Timeline: ${formData.timeline || "Not specified"}
+        `,
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+      
+      setSubmitStatus("success");
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        project: "",
+        budget: "",
+        timeline: "",
+      });
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -216,15 +266,43 @@ export function ContactSection() {
               <div className="pt-8">
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-white text-black font-medium hover:bg-gray-200 transition-colors duration-300"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className={`w-full py-4 font-medium transition-all duration-300 ${
+                    isSubmitting 
+                      ? "bg-gray-800 text-gray-400 cursor-not-allowed" 
+                      : "bg-white text-black hover:bg-gray-200"
+                  }`}
                 >
-                  Submit Inquiry
+                  {isSubmitting ? "Sending..." : "Submit Inquiry"}
                 </motion.button>
-                <p className="text-sm text-gray-600 mt-4 text-center">
-                  We'll get back to you within 24 hours.
-                </p>
+                
+                {submitStatus === "success" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-sm text-green-500 mt-4 text-center"
+                  >
+                    Thank you! Your inquiry has been sent successfully.
+                  </motion.p>
+                )}
+                
+                {submitStatus === "error" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-sm text-red-500 mt-4 text-center"
+                  >
+                    Sorry, there was an error. Please try again or email directly.
+                  </motion.p>
+                )}
+                
+                {submitStatus === "idle" && (
+                  <p className="text-sm text-gray-600 mt-4 text-center">
+                    We'll get back to you within 24 hours.
+                  </p>
+                )}
               </div>
             </form>
           </motion.div>
