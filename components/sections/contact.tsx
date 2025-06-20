@@ -37,6 +37,11 @@ export function ContactSection() {
     setSubmitStatus("idle");
 
     try {
+      // Initialize EmailJS first
+      emailjs.init({
+        publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "tFGrBssQt92lRU8JF",
+      });
+      
       // EmailJS configuration from environment variables
       const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_ztiq5yj";
       const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_uzfsjdq";
@@ -69,7 +74,8 @@ export function ContactSection() {
         templateParams
       });
       
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+      const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
+      console.log("Email sent successfully:", result);
       
       setSubmitStatus("success");
       // Reset form
