@@ -44,7 +44,6 @@ export function ContactSection() {
 
       // Prepare template parameters
       const templateParams = {
-        to_email: "ronitdhansoia@gmail.com",
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not specified",
