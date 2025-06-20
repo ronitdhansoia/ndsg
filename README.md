@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NDSG Associates Website
+
+A sophisticated, all-black themed website for NDSG Associates built with Next.js 15 and featuring smooth animations powered by Aceternity UI components.
+
+## Features
+
+- **Modern Design**: All-black theme with cyan and blue accents
+- **Smooth Animations**: Powered by Framer Motion and Aceternity UI
+- **Responsive Layout**: Works seamlessly across all devices
+- **Interactive Components**:
+  - Animated hero section with spotlight effects
+  - 3D card animations
+  - Hover border gradients
+  - Sticky scroll reveal
+  - Background particle beams
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **UI Components**: Aceternity UI
+- **Animations**: Framer Motion
+- **Language**: TypeScript
 
 ## Getting Started
 
-First, run the development server:
-
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+ndsg-website/
+├── app/                    # Next.js app directory
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout with navigation
+│   └── page.tsx           # Home page
+├── components/
+│   ├── ui/                # Aceternity UI components
+│   │   ├── 3d-card.tsx
+│   │   ├── background-beams.tsx
+│   │   ├── hover-border-gradient.tsx
+│   │   ├── spotlight.tsx
+│   │   ├── sticky-scroll-reveal.tsx
+│   │   └── text-generate-effect.tsx
+│   └── sections/          # Website sections
+│       ├── navigation.tsx
+│       ├── hero.tsx
+│       ├── about.tsx
+│       ├── culture.tsx
+│       ├── services.tsx
+│       ├── advanced-tech.tsx
+│       ├── service-details.tsx
+│       ├── contact.tsx
+│       └── footer.tsx
+└── lib/
+    └── utils.ts           # Utility functions
 
-To learn more about Next.js, take a look at the following resources:
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Sections
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Hero**: Eye-catching landing with animated text and spotlight effects
+2. **About**: Company overview with glassmorphism cards and stats
+3. **Culture**: Vision, Mission, and Values with 3D card effects
+4. **Services**: Core service offerings with hover effects
+5. **Advanced Tech**: Detailed technology solutions with sticky scroll
+6. **Service Details**: In-depth service information
+7. **Contact**: Contact form and company information
+8. **Footer**: Links and social media
+
+## Customization
+
+- Colors can be modified in `tailwind.config.ts`
+- Content can be updated in respective section components
+- Animations can be tweaked by adjusting Framer Motion properties
+
+## Build for Production
+
+```bash
+npm run build
+npm start
+```
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+© 2024 NDSG Associates. All rights reserved.
