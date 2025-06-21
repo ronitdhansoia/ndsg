@@ -58,14 +58,37 @@ export function ContactSection() {
       };
 
       // Send email using EmailJS
-      console.log("Attempting to send email with EmailJS...");
+      console.log("Attempting to send emails with EmailJS...");
       console.log("Service ID:", SERVICE_ID);
       console.log("Template ID:", TEMPLATE_ID);
       console.log("Template params:", templateParams);
       
       try {
-        const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
-        console.log("Email sent successfully:", result);
+        // Send notification email to admin
+        const adminResult = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
+        console.log("Admin notification sent successfully:", adminResult);
+        
+        // Send thank you email to user
+        // Note: You'll need to create a new template in EmailJS for this
+        // Template ID for thank you email: template_thankyou (you need to create this)
+        const THANKYOU_TEMPLATE_ID = "template_thankyou"; // Update this with your actual template ID
+        
+        const thankyouParams = {
+          to_email: formData.email, // User's email
+          from_name: formData.name,
+          company: formData.company || "Not specified",
+          project_type: formData.project || "Not specified",
+          budget: formData.budget || "Not specified",
+          timeline: formData.timeline || "Not specified",
+        };
+        
+        try {
+          const thankyouResult = await emailjs.send(SERVICE_ID, THANKYOU_TEMPLATE_ID, thankyouParams);
+          console.log("Thank you email sent successfully:", thankyouResult);
+        } catch (thankyouError: any) {
+          console.error("Failed to send thank you email:", thankyouError);
+          // Don't throw here - admin email was sent successfully
+        }
       } catch (emailError: any) {
         console.error("EmailJS specific error:", emailError);
         throw emailError;
